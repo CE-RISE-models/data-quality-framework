@@ -1,6 +1,6 @@
 {
-  "title": "Project template for data models developed within the CE-RISE Horizon Europe project",
-  "description": "Project template for data models developed within the CE-RISE Horizon Europe project.",
+  "title": "CE-RISE Data Quality Framework Data Model",
+  "description": "Cross-cutting LinkML data model for documenting data quality assessments, pedigree scores, diagnostics, remediation actions, provenance, and data-quality-derived uncertainty metadata in CE-RISE Digital Product Passport and Digital Material Passport records.",
   "license": "CC-BY-NC-4.0",
   "upload_type": "software",
   "creators": [
@@ -8,15 +8,27 @@
       "name": "Boero, Riccardo",
       "affiliation": "NILU",
       "orcid": "0000-0002-7468-9096"
+    },
+    {
+      "name": "Rösslein, Matthias",
+      "affiliation": "EMPA",
+      "orcid": "0000-0002-6858-4124"
     }
   ],
   "keywords": [
     "CE-RISE",
     "Data Model",
     "Ontology",
+    "Data Quality",
+    "Data Quality Assessment",
+    "Pedigree Matrix",
+    "Diagnostics",
+    "Provenance",
+    "Uncertainty Factor",
     "Open Source",
     "Open Science",
-    "Digital Product Passport"
+    "Digital Product Passport",
+    "Digital Material Passport"
   ],
   "communities": [
     { "identifier": "ce-rise" },
@@ -27,7 +39,7 @@
   ],
   "related_identifiers": [
     {
-      "identifier": "https://codeberg.org/CE-RISE_models/template-data-model",
+      "identifier": "https://codeberg.org/CE-RISE-models/data-quality-framework",
       "relation": "isSupplementTo",
       "resource_type": "software"
     }
