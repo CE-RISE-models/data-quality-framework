@@ -1,9 +1,11 @@
-# CE-RISE Data Model Template
+# CE-RISE Data Quality Framework Data Model
 
-[![DOI](https://zenodo.org/badge/DOI/TOBEOBTAINED.svg)](https://doi.org/TOBEOBTAINED) [![Schemas](https://img.shields.io/badge/Schema%20Files-LinkML%2C%20JSON%2C%20SHACL%2C%20OWL-32CD32)](https://ce-rise-models.codeberg.page/<repo-name>/)
+[![DOI](https://zenodo.org/badge/DOI/TOBEOBTAINED.svg)](https://doi.org/TOBEOBTAINED) [![Schemas](https://img.shields.io/badge/Schema%20Files-LinkML%2C%20JSON%2C%20SHACL%2C%20OWL-32CD32)](https://ce-rise-models.codeberg.page/data-quality-framework/)
 
-This repository provides the **official template** for creating CE-RISE data models.  
-It defines the standard structure, tooling, and workflow used across all model projects.
+This repository defines the CE-RISE cross-cutting data model for data quality assessment.
+It provides a reusable framework for assessing fitness for purpose of data across DPP and
+DMP models, covering provenance, representativeness, validity, accuracy, consistency,
+timeliness, completeness, pedigree scoring, diagnostics, and remediation metadata.
 
 
 ---
@@ -83,7 +85,7 @@ This identifier system enables seamless integration with databases and ensures c
 Release artifacts for each version (`schema.json`, `shacl.ttl`, `model.owl`)  
 are served directly from this URL:
 ```
-https://ce-rise-models.codeberg.page/<repo-name>/
+https://ce-rise-models.codeberg.page/data-quality-framework/
 ```
 
 
@@ -94,7 +96,7 @@ https://ce-rise-models.codeberg.page/<repo-name>/
 If you want to view the files published for version `v1.2.0`, open:
 
 ```
-https://codeberg.org/CE-RISE-models/<repo-name>/src/tag/pages-v1.2.0/generated/
+https://codeberg.org/CE-RISE-models/data-quality-framework/src/tag/pages-v1.2.0/generated/
 ```
 
 Files available in that directory typically include:
@@ -124,6 +126,5 @@ Attribution: CE-RISE project (Grant Agreement No. 101092281) and the individual 
 </a>
 
 Developed by NILU (Riccardo Boero — ribo@nilu.no) within the CE-RISE project.  
-
 
 
