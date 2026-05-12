@@ -6,7 +6,7 @@ description: >
     diagnostics, remediation actions, provenance, and data-quality-derived uncertainty metadata
     for CE-RISE Digital Product Passport and Digital Material Passport data models.
 license: CC BY-NC 4.0
-version: 0.0.2
+version: 0.0.3
 
 prefixes:
     linkml: https://w3id.org/linkml/
@@ -1015,7 +1015,6 @@ classes:
     DataQualityFramework:
         class_uri: dqf:dataQualityFramework
         description: "Root container for data quality assessments and supporting records"
-        tree_root: true
         slots:
             - data_quality_assessments
             - data_characterizations
