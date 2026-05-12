@@ -6,7 +6,7 @@ description: >
     diagnostics, remediation actions, provenance, and data-quality-derived uncertainty metadata
     for CE-RISE Digital Product Passport and Digital Material Passport data models.
 license: CC BY-NC 4.0
-version: 0.0.1
+version: 0.0.2
 
 prefixes:
     linkml: https://w3id.org/linkml/
@@ -96,70 +96,70 @@ slots:
             owl.filler: dqv:hasQualityAnnotation
             sql_identifier: "dqf_fitness_for_purpose"
 
-    applies_to_model_value:
+    data_quality_applies_to_model_value:
         description: "Name, URI, or namespace of the external data model to which this data quality assessment applies"
         range: string
         annotations:
             owl.filler: dqf:appliesToModelValue
             sql_identifier: "dqf_applies_to_model"
 
-    applies_to_class_value:
+    data_quality_applies_to_class_value:
         description: "Class in an external model to which this data quality assessment applies"
         range: string
         annotations:
             owl.filler: dqf:appliesToClassValue
             sql_identifier: "dqf_applies_to_class"
 
-    applies_to_slot_value:
+    data_quality_applies_to_slot_value:
         description: "Slot or attribute in an external model to which this data quality assessment applies"
         range: string
         annotations:
             owl.filler: dqf:appliesToSlotValue
             sql_identifier: "dqf_applies_to_slot"
 
-    applies_to_record_value:
+    data_quality_applies_to_record_value:
         description: "Identifier of the external record, object, dataset, or passport entry to which this data quality assessment applies"
         range: string
         annotations:
             owl.filler: dqf:appliesToRecordValue
             sql_identifier: "dqf_applies_to_record"
 
-    applies_to_value_path_value:
+    data_quality_applies_to_value_path_value:
         description: "JSONPath, XPath, RDF path, or other pointer to the value to which this data quality assessment applies"
         range: string
         annotations:
             owl.filler: dqf:appliesToValuePathValue
             sql_identifier: "dqf_applies_to_value_path"
 
-    applies_to_value_identifier_value:
+    data_quality_applies_to_value_identifier_value:
         description: "Identifier of a specific value object when the target model gives value-level identifiers"
         range: string
         annotations:
             owl.filler: dqf:appliesToValueIdentifierValue
             sql_identifier: "dqf_applies_to_value_identifier"
 
-    uncertainty_reference_value:
+    data_quality_uncertainty_reference_value:
         description: "Reference to an uncertainty statement, uncertainty budget, or uncertainty component informed by this data quality assessment"
         range: string
         annotations:
             owl.filler: uq:uncertaintyReference
             sql_identifier: "dqf_uncertainty_reference"
 
-    traceability_reference_value:
+    data_quality_traceability_reference_value:
         description: "Reference to a metrological traceability statement, chain, method, calibration, or boundary definition related to this data quality assessment"
         range: string
         annotations:
             owl.filler: mt:traceabilityReference
             sql_identifier: "dqf_traceability_reference"
 
-    evidence_reference_value:
+    data_quality_evidence_reference_value:
         description: "Reference to supporting evidence such as a report, dataset, diagnostic output, certificate, standard, or workflow record"
         range: string
         annotations:
             owl.filler: prov:wasDerivedFrom
             sql_identifier: "dqf_evidence_reference_value"
 
-    standards_applied_value:
+    data_quality_standards_applied_value:
         description: "Standard, guide, protocol, or scoring framework applied in the data quality assessment"
         range: string
         annotations:
@@ -307,7 +307,7 @@ slots:
             owl.filler: skos:definition
             sql_identifier: "dqf_variable_definition"
 
-    unit_value:
+    data_quality_unit_value:
         description: "Unit associated with a quantitative value or metric"
         range: string
         annotations:
@@ -773,7 +773,7 @@ slots:
             owl.filler: uq:coefficientOfVariationValue
             sql_identifier: "dqf_coefficient_of_variation_upper"
 
-    uncertainty_factor_value:
+    data_quality_uncertainty_factor_value:
         description: "Uncertainty factor derived from data quality information"
         range: float
         annotations:
@@ -851,49 +851,49 @@ slots:
             sql_identifier: "dqf_aggregation_rationale"
 
     # Evidence records
-    evidence_identifier_value:
+    data_quality_evidence_identifier_value:
         description: "Identifier for supporting evidence"
         range: string
         annotations:
             owl.filler: dcterms:identifier
             sql_identifier: "dqf_evidence_identifier"
 
-    evidence_type_value:
+    data_quality_evidence_type_value:
         description: "Type of supporting evidence"
-        range: EvidenceTypeEnum
+        range: DataQualityEvidenceTypeEnum
         annotations:
             owl.filler: dcterms:type
             sql_identifier: "dqf_evidence_type"
 
-    evidence_url_value:
+    data_quality_evidence_url_value:
         description: "URL for supporting evidence"
         range: uri
         annotations:
             owl.filler: schema:url
             sql_identifier: "dqf_evidence_url"
 
-    evidence_description_value:
+    data_quality_evidence_description_value:
         description: "Description of supporting evidence"
         range: string
         annotations:
             owl.filler: dcterms:description
             sql_identifier: "dqf_evidence_description"
 
-    evidence_date_value:
+    data_quality_evidence_date_value:
         description: "Date associated with supporting evidence"
         range: date
         annotations:
             owl.filler: dcterms:date
             sql_identifier: "dqf_evidence_date"
 
-    evidence_provider_value:
+    data_quality_evidence_provider_value:
         description: "Provider, author, laboratory, supplier, or organization responsible for supporting evidence"
         range: string
         annotations:
             owl.filler: prov:Agent
             sql_identifier: "dqf_evidence_provider"
 
-    evidence_version_value:
+    data_quality_evidence_version_value:
         description: "Version, edition, or revision of supporting evidence"
         range: string
         annotations:
@@ -981,9 +981,9 @@ slots:
             owl.filler: dqf:qualityAggregation
             sql_identifier: "dqf_quality_aggregations"
 
-    evidence_references:
+    data_quality_evidence_references:
         description: "Evidence records referenced by the data quality framework"
-        range: EvidenceReference
+        range: DataQualityEvidenceReference
         multivalued: true
         annotations:
             owl.filler: dqf:evidenceReference
@@ -1027,7 +1027,7 @@ classes:
             - remediation_actions
             - uncertainty_translations
             - quality_aggregations
-            - evidence_references
+            - data_quality_evidence_references
         annotations:
             sql_identifier: "dqf_root"
 
@@ -1048,22 +1048,22 @@ classes:
             - assessment_purpose_value
             - intended_use_value
             - fitness_for_purpose_value
-            - applies_to_model_value
-            - applies_to_class_value
-            - applies_to_slot_value
-            - applies_to_record_value
-            - applies_to_value_path_value
-            - applies_to_value_identifier_value
+            - data_quality_applies_to_model_value
+            - data_quality_applies_to_class_value
+            - data_quality_applies_to_slot_value
+            - data_quality_applies_to_record_value
+            - data_quality_applies_to_value_path_value
+            - data_quality_applies_to_value_identifier_value
             - data_characterization
             - data_quality_profile
             - quality_diagnostics
             - quality_issues
             - remediation_actions
             - uncertainty_translation
-            - uncertainty_reference_value
-            - traceability_reference_value
-            - evidence_reference_value
-            - standards_applied_value
+            - data_quality_uncertainty_reference_value
+            - data_quality_traceability_reference_value
+            - data_quality_evidence_reference_value
+            - data_quality_standards_applied_value
             - assessment_notes_value
         annotations:
             references: "CE-RISE D2.4; W3C Data Quality Vocabulary; PROV-O; NUSAP; IPCC data quality guidance; ISO 14044; ISO 8000; ISO 9001"
@@ -1092,12 +1092,12 @@ classes:
             - population_or_scope_value
             - sample_size_value
             - variable_definition_value
-            - unit_value
+            - data_quality_unit_value
             - preprocessing_description_value
             - harmonization_description_value
             - provenance_description_value
-            - traceability_reference_value
-            - evidence_reference_value
+            - data_quality_traceability_reference_value
+            - data_quality_evidence_reference_value
         annotations:
             references: "W3C DCAT; PROV-O; DQV; ISO 8000"
             sql_identifier: "dqf_data_characterization_record"
@@ -1117,7 +1117,7 @@ classes:
             - limiting_criteria_value
             - profile_summary_value
             - uncertainty_translation
-            - evidence_reference_value
+            - data_quality_evidence_reference_value
         annotations:
             references: "CE-RISE D2.4; NUSAP; W3C Data Quality Vocabulary"
             sql_identifier: "dqf_profile"
@@ -1138,7 +1138,7 @@ classes:
             - quality_metrics
             - quality_issues
             - uncertainty_translation
-            - evidence_reference_value
+            - data_quality_evidence_reference_value
         annotations:
             references: "CE-RISE D2.4; NUSAP; W3C Data Quality Vocabulary"
             sql_identifier: "dqf_criterion_assessment_record"
@@ -1156,7 +1156,7 @@ classes:
             - metric_threshold_value
             - metric_pass_flag_value
             - metric_method_value
-            - evidence_reference_value
+            - data_quality_evidence_reference_value
         annotations:
             references: "W3C Data Quality Vocabulary"
             sql_identifier: "dqf_quality_metric_record"
@@ -1178,7 +1178,7 @@ classes:
             - diagnostic_reproducibility_value
             - quality_metrics
             - quality_issues
-            - evidence_reference_value
+            - data_quality_evidence_reference_value
         annotations:
             references: "CE-RISE D2.4; W3C Data Quality Vocabulary; PROV-O"
             sql_identifier: "dqf_diagnostic"
@@ -1197,8 +1197,8 @@ classes:
             - issue_scope_value
             - issue_detected_date_value
             - remediation_actions
-            - uncertainty_reference_value
-            - evidence_reference_value
+            - data_quality_uncertainty_reference_value
+            - data_quality_evidence_reference_value
         annotations:
             references: "CE-RISE D2.4"
             sql_identifier: "dqf_issue"
@@ -1217,7 +1217,7 @@ classes:
             - remediation_completion_date_value
             - expected_score_improvement_value
             - verification_method_value
-            - evidence_reference_value
+            - data_quality_evidence_reference_value
         annotations:
             references: "CE-RISE D2.4"
             sql_identifier: "dqf_remediation_action_record"
@@ -1231,13 +1231,13 @@ classes:
             - source_quality_score_value
             - coefficient_of_variation_lower_value
             - coefficient_of_variation_upper_value
-            - uncertainty_factor_value
+            - data_quality_uncertainty_factor_value
             - combined_coefficient_of_variation_value
             - combined_uncertainty_factor_value
             - uncertainty_distribution_assumption_value
-            - uncertainty_reference_value
+            - data_quality_uncertainty_reference_value
             - uncertainty_translation_rationale_value
-            - evidence_reference_value
+            - data_quality_evidence_reference_value
         annotations:
             references: "CE-RISE D2.4; JCGM 100:2008; JCGM 101:2008"
             sql_identifier: "dqf_uncertainty_translation_record"
@@ -1253,22 +1253,22 @@ classes:
             - aggregation_weights_value
             - aggregation_output_reference_value
             - aggregation_rationale_value
-            - evidence_reference_value
+            - data_quality_evidence_reference_value
         annotations:
             references: "CE-RISE D2.4; W3C Data Quality Vocabulary"
             sql_identifier: "dqf_aggregation_record"
 
-    EvidenceReference:
+    DataQualityEvidenceReference:
         class_uri: dqf:evidenceReference
         description: "Supporting evidence record for a data quality assessment, score, diagnostic, issue, remediation action, uncertainty translation, or aggregation"
         slots:
-            - evidence_identifier_value
-            - evidence_type_value
-            - evidence_url_value
-            - evidence_description_value
-            - evidence_date_value
-            - evidence_provider_value
-            - evidence_version_value
+            - data_quality_evidence_identifier_value
+            - data_quality_evidence_type_value
+            - data_quality_evidence_url_value
+            - data_quality_evidence_description_value
+            - data_quality_evidence_date_value
+            - data_quality_evidence_provider_value
+            - data_quality_evidence_version_value
         annotations:
             sql_identifier: "dqf_evidence_reference"
 
@@ -1685,7 +1685,7 @@ enums:
             other:
                 description: "Other aggregation level"
 
-    EvidenceTypeEnum:
+    DataQualityEvidenceTypeEnum:
         description: "Types of evidence used to support data quality assessments"
         permissible_values:
             diagnostic_report:
