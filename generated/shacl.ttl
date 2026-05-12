@@ -1,0 +1,1000 @@
+@prefix dqf: <https://ce-rise-models.codeberg.page/data-quality-framework/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dqf:dataQualityFramework a sh:NodeShape ;
+    rdfs:comment "Root container for data quality assessments and supporting records" ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class dqf:dataQualityAssessment ;
+            sh:description "Reusable data quality assessments that can be embedded or referenced by other CE-RISE data models" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path dqf:data_quality_assessments ],
+        [ sh:class dqf:qualityMetric ;
+            sh:description "Quality metrics or diagnostic metrics used by profiles, criteria, or diagnostics" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path dqf:quality_metrics ],
+        [ sh:class dqf:qualityCriterionAssessment ;
+            sh:description "Criterion-level pedigree assessments" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path dqf:criterion_assessments ],
+        [ sh:class dqf:uncertaintyTranslation ;
+            sh:description "Translations from data quality scores to uncertainty information" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path dqf:uncertainty_translations ],
+        [ sh:class dqf:qualityIssue ;
+            sh:description "Data quality issues, limitations, anomalies, or risks" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 6 ;
+            sh:path dqf:quality_issues ],
+        [ sh:class dqf:dataQualityProfile ;
+            sh:description "Data quality profiles available for reuse by one or more assessments" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path dqf:data_quality_profiles ],
+        [ sh:class dqf:remediationAction ;
+            sh:description "Remediation, mitigation, containment, or improvement actions" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 7 ;
+            sh:path dqf:remediation_actions ],
+        [ sh:class dqf:evidenceReference ;
+            sh:description "Evidence records referenced by the data quality framework" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path dqf:data_quality_evidence_references ],
+        [ sh:class dqf:qualityAggregation ;
+            sh:description "Aggregations of data quality assessments, profiles, criteria, metrics, or uncertainty translations" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path dqf:quality_aggregations ],
+        [ sh:class dqf:qualityDiagnostic ;
+            sh:description "Data-quality diagnostic runs, checks, or analyses" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path dqf:quality_diagnostics ],
+        [ sh:class dqf:dataCharacterization ;
+            sh:description "Data characterization records available for reuse by one or more assessments" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path dqf:data_characterizations ] ;
+    sh:targetClass dqf:dataQualityFramework .
+
+dqf:dataQualityAssessment a sh:NodeShape ;
+    rdfs:comment "Reusable assessment describing the quality, fitness for purpose, diagnostics, and improvement needs of data used by CE-RISE models" ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Standard, guide, protocol, or scoring framework applied in the data quality assessment" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 24 ;
+            sh:path dqf:data_quality_standards_applied_value ],
+        [ sh:class dqf:dataQualityProfile ;
+            sh:description "Data quality profile associated with an assessment" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 16 ;
+            sh:path dqf:data_quality_profile ],
+        [ sh:class dqf:uncertaintyTranslation ;
+            sh:description "DQA-to-uncertainty translation associated with an assessment or profile" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 20 ;
+            sh:path dqf:uncertainty_translation ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identifier for a data quality assessment that can be referenced from another CE-RISE model" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path dqf:data_quality_assessment_identifier_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Class in an external model to which this data quality assessment applies" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path dqf:data_quality_applies_to_class_value ],
+        [ sh:description "Overall statement of whether the data are fit for the stated purpose" ;
+            sh:in ( "fit" "fit_with_conditions" "exploratory_only" "not_fit" "insufficient_information" "not_evaluated" ) ;
+            sh:maxCount 1 ;
+            sh:order 8 ;
+            sh:path dqf:fitness_for_purpose_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Person, organization, system, or workflow responsible for the data quality assessment" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path dqf:assessor_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Human-readable label for the data quality assessment" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path dqf:data_quality_assessment_label_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "JSONPath, XPath, RDF path, or other pointer to the value to which this data quality assessment applies" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 13 ;
+            sh:path dqf:data_quality_applies_to_value_path_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Slot or attribute in an external model to which this data quality assessment applies" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path dqf:data_quality_applies_to_slot_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Reference to supporting evidence such as a report, dataset, diagnostic output, certificate, standard, or workflow record" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 23 ;
+            sh:path dqf:data_quality_evidence_reference_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identifier of a specific value object when the target model gives value-level identifiers" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 14 ;
+            sh:path dqf:data_quality_applies_to_value_identifier_value ],
+        [ sh:class dqf:qualityIssue ;
+            sh:description "Data quality issues, limitations, anomalies, or risks" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 18 ;
+            sh:path dqf:quality_issues ],
+        [ sh:class dqf:remediationAction ;
+            sh:description "Remediation, mitigation, containment, or improvement actions" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 19 ;
+            sh:path dqf:remediation_actions ],
+        [ sh:class dqf:qualityDiagnostic ;
+            sh:description "Data-quality diagnostic runs, checks, or analyses" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 17 ;
+            sh:path dqf:quality_diagnostics ],
+        [ sh:datatype xsd:string ;
+            sh:description "Reference to a metrological traceability statement, chain, method, calibration, or boundary definition related to this data quality assessment" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 22 ;
+            sh:path dqf:data_quality_traceability_reference_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identifier of the external record, object, dataset, or passport entry to which this data quality assessment applies" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path dqf:data_quality_applies_to_record_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Intended use, decision context, or analytical purpose for which data fitness is assessed" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path dqf:intended_use_value ],
+        [ sh:description "Type of data quality assessment being documented" ;
+            sh:in ( "value_assessment" "record_assessment" "dataset_assessment" "indicator_input_assessment" "indicator_output_assessment" "evidence_assessment" "process_assessment" "composite_assessment" "not_evaluated" "other" ) ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path dqf:data_quality_assessment_type_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Name, URI, or namespace of the external data model to which this data quality assessment applies" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path dqf:data_quality_applies_to_model_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Reference to an uncertainty statement, uncertainty budget, or uncertainty component informed by this data quality assessment" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 21 ;
+            sh:path dqf:data_quality_uncertainty_reference_value ],
+        [ sh:class dqf:dataCharacterization ;
+            sh:description "Characterization of the assessed data and its provenance" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 15 ;
+            sh:path dqf:data_characterization ],
+        [ sh:datatype xsd:dateTime ;
+            sh:description "Date and time when the data quality assessment was issued or last updated" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path dqf:data_quality_assessment_date_value ],
+        [ sh:description "Lifecycle status of the data quality assessment" ;
+            sh:in ( "draft" "active" "reviewed" "verified" "partial" "superseded" "expired" "unavailable" ) ;
+            sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path dqf:data_quality_assessment_status_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Additional notes about the data quality assessment" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 25 ;
+            sh:path dqf:assessment_notes_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Purpose for which the data quality assessment is performed" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path dqf:assessment_purpose_value ] ;
+    sh:targetClass dqf:dataQualityAssessment .
+
+dqf:evidenceReference a sh:NodeShape ;
+    rdfs:comment "Supporting evidence record for a data quality assessment, score, diagnostic, issue, remediation action, uncertainty translation, or aggregation" ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Identifier for supporting evidence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path dqf:data_quality_evidence_identifier_value ],
+        [ sh:datatype xsd:date ;
+            sh:description "Date associated with supporting evidence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path dqf:data_quality_evidence_date_value ],
+        [ sh:description "Type of supporting evidence" ;
+            sh:in ( "diagnostic_report" "data_profile" "dataset_snapshot" "provenance_record" "metadata_record" "calibration_certificate" "traceability_record" "validation_report" "harmonization_log" "remediation_record" "workflow_record" "supplier_declaration" "standard_or_protocol" "other" ) ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path dqf:data_quality_evidence_type_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Description of supporting evidence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path dqf:data_quality_evidence_description_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Version, edition, or revision of supporting evidence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path dqf:data_quality_evidence_version_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Provider, author, laboratory, supplier, or organization responsible for supporting evidence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path dqf:data_quality_evidence_provider_value ],
+        [ sh:datatype xsd:anyURI ;
+            sh:description "URL for supporting evidence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path dqf:data_quality_evidence_url_value ] ;
+    sh:targetClass dqf:evidenceReference .
+
+dqf:qualityAggregation a sh:NodeShape ;
+    rdfs:comment "Aggregation of assessments, profiles, criterion scores, metrics, or uncertainty translations across values, records, datasets, or indicators" ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Reference to supporting evidence such as a report, dataset, diagnostic output, certificate, standard, or workflow record" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path dqf:data_quality_evidence_reference_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "References to the input assessments, profiles, criteria, metrics, or data sources used in the aggregation" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path dqf:aggregation_input_references_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identifier for an aggregation of data quality assessments, profiles, criteria, metrics, or uncertainty translations" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path dqf:aggregation_identifier_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Weights or weighting rule used in the aggregation" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path dqf:aggregation_weights_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Rationale for the aggregation method and weighting choices" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path dqf:aggregation_rationale_value ],
+        [ sh:description "Method used to aggregate criterion scores or lower-level assessments into a profile" ;
+            sh:in ( "worst_score" "rule_based" "weighted_mean" "arithmetic_mean" "geometric_mean" "maximum_risk" "hierarchical" "expert_judgement" "custom" "not_evaluated" ) ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path dqf:aggregation_method_value ],
+        [ sh:description "Level at which aggregation is performed" ;
+            sh:in ( "value" "record" "dataset" "input_quantity" "indicator" "model" "component" "product" "material" "portfolio" "other" ) ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path dqf:aggregation_level_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Reference to the output assessment, profile, score, uncertainty translation, or decision produced by the aggregation" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path dqf:aggregation_output_reference_value ] ;
+    sh:targetClass dqf:qualityAggregation .
+
+dqf:dataCharacterization a sh:NodeShape ;
+    rdfs:comment "Characterization of the assessed data, including source, provenance, scope, collection method, versioning, and preprocessing" ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Technological, product, process, or system coverage represented by the data" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 15 ;
+            sh:path dqf:technological_coverage_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Target population, inference scope, product scope, material scope, or process scope represented by the data" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 16 ;
+            sh:path dqf:population_or_scope_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Reference to a metrological traceability statement, chain, method, calibration, or boundary definition related to this data quality assessment" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 23 ;
+            sh:path dqf:data_quality_traceability_reference_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unit associated with a quantitative value or metric" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 19 ;
+            sh:path dqf:data_quality_unit_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Reference to supporting evidence such as a report, dataset, diagnostic output, certificate, standard, or workflow record" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 24 ;
+            sh:path dqf:data_quality_evidence_reference_value ],
+        [ sh:description "Type of data source used" ;
+            sh:in ( "direct_measurement" "laboratory_test" "supplier_declaration" "administrative_record" "database" "literature" "expert_judgement" "survey_or_interview" "sensor_or_iot" "calculation_or_model" "mixed" "other" ) ;
+            sh:maxCount 1 ;
+            sh:order 5 ;
+            sh:path dqf:data_source_type_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Provider, owner, custodian, supplier, laboratory, or organization responsible for the data" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path dqf:data_provider_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Definition of the variable, field, indicator, category, or qualitative construct being assessed" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 18 ;
+            sh:path dqf:variable_definition_value ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Sample size, number of observations, number of records, or number of contributing sources" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 17 ;
+            sh:path dqf:sample_size_value ],
+        [ sh:datatype xsd:date ;
+            sh:description "Start date for the data collection or generation period" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path dqf:collection_start_date_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identifier for a data characterization record" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path dqf:data_characterization_identifier_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Geographic coverage or spatial representativeness of the data" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 14 ;
+            sh:path dqf:geographic_coverage_value ],
+        [ sh:datatype xsd:date ;
+            sh:description "End date for the data collection or generation period" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path dqf:collection_end_date_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Documented collection protocol, questionnaire, instrument, test method, API, or extraction logic" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path dqf:collection_protocol_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Name of the assessed data source, dataset, value source, or information source" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path dqf:data_source_name_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Domain or subject area of the data, such as product specification, LCA, diagnostics, compliance, or circularity" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path dqf:data_domain_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Method, protocol, procedure, system, or workflow used to collect or generate the data" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path dqf:collection_method_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Harmonization, mapping, coding, unit conversion, or schema alignment applied to combine or compare data" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 21 ;
+            sh:path dqf:harmonization_description_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Narrative provenance of the data, including who collected it, when, under which protocol, and how it was processed" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 22 ;
+            sh:path dqf:provenance_description_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Version, edition, revision, release date, or snapshot identifier for the assessed data" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path dqf:data_version_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Update cadence or refresh frequency for the data" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path dqf:update_frequency_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Temporal coverage or period represented by the data" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 13 ;
+            sh:path dqf:temporal_coverage_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Preprocessing, cleaning, transformation, imputation, filtering, or normalization applied before assessment" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 20 ;
+            sh:path dqf:preprocessing_description_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identifier for the assessed data source, dataset, value source, or information source" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path dqf:data_source_identifier_value ],
+        [ sh:description "Type of data being assessed" ;
+            sh:in ( "quantitative" "semi_quantitative" "qualitative" "categorical" "boolean" "time_series" "geospatial" "modelled" "mixed" "other" ) ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path dqf:data_type_value ] ;
+    sh:targetClass dqf:dataCharacterization .
+
+dqf:dataQualityProfile a sh:NodeShape ;
+    rdfs:comment "Profile aggregating data quality criteria, scores, flags, and confidence for a dataset, value, source, or information product" ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Identifier for a data quality profile aggregating one or more criterion assessments" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path dqf:data_quality_profile_identifier_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Summary of the data quality profile, including main strengths and weaknesses" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path dqf:profile_summary_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Criterion or criteria that limit the overall score, confidence, or decision flag" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path dqf:limiting_criteria_value ],
+        [ sh:datatype xsd:float ;
+            sh:description "Numeric quality score when the score is represented as a number" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path dqf:overall_numeric_score_value ],
+        [ sh:class dqf:uncertaintyTranslation ;
+            sh:description "DQA-to-uncertainty translation associated with an assessment or profile" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path dqf:uncertainty_translation ],
+        [ sh:datatype xsd:string ;
+            sh:description "Human-readable name of a data quality profile" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path dqf:data_quality_profile_name_value ],
+        [ sh:description "Confidence level implied by the data quality assessment" ;
+            sh:in ( "high" "medium" "low" "very_low" "not_evaluated" ) ;
+            sh:maxCount 1 ;
+            sh:order 5 ;
+            sh:path dqf:confidence_level_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Reference to supporting evidence such as a report, dataset, diagnostic output, certificate, standard, or workflow record" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path dqf:data_quality_evidence_reference_value ],
+        [ sh:description "Overall pedigree score for the assessed data, typically from 1 very reliable to 4 dubious" ;
+            sh:in ( "score_1_very_reliable" "score_2_reliable" "score_3_unreliable" "score_4_dubious" "not_evaluated" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path dqf:overall_quality_score_value ],
+        [ sh:class dqf:qualityCriterionAssessment ;
+            sh:description "Criterion-level pedigree assessments" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path dqf:criterion_assessments ],
+        [ sh:description "Operational decision flag derived from the quality profile" ;
+            sh:in ( "green_proceed" "orange_review" "red_reject" "grey_not_evaluated" ) ;
+            sh:maxCount 1 ;
+            sh:order 6 ;
+            sh:path dqf:quality_flag_value ],
+        [ sh:description "Method used to aggregate criterion scores or lower-level assessments into a profile" ;
+            sh:in ( "worst_score" "rule_based" "weighted_mean" "arithmetic_mean" "geometric_mean" "maximum_risk" "hierarchical" "expert_judgement" "custom" "not_evaluated" ) ;
+            sh:maxCount 1 ;
+            sh:order 7 ;
+            sh:path dqf:aggregation_method_value ] ;
+    sh:targetClass dqf:dataQualityProfile .
+
+dqf:qualityCriterionAssessment a sh:NodeShape ;
+    rdfs:comment "Criterion-level assessment for a data quality dimension such as validity, accuracy, consistency, timeliness, or completeness" ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Identifier for a criterion-level quality assessment" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path dqf:criterion_assessment_identifier_value ],
+        [ sh:description "Pedigree score assigned to a quality criterion" ;
+            sh:in ( "score_1_very_reliable" "score_2_reliable" "score_3_unreliable" "score_4_dubious" "not_evaluated" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path dqf:criterion_score_value ],
+        [ sh:description "Quality criterion being assessed" ;
+            sh:in ( "validity" "accuracy" "consistency" "timeliness" "completeness" "representativeness" "transparency" "provenance" "reproducibility" "precision" "other" ) ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path dqf:criterion_type_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Impact of this criterion on the intended use, uncertainty, bias, comparability, or decision" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path dqf:criterion_impact_value ],
+        [ sh:class dqf:qualityMetric ;
+            sh:description "Quality metrics or diagnostic metrics used by profiles, criteria, or diagnostics" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path dqf:quality_metrics ],
+        [ sh:class dqf:uncertaintyTranslation ;
+            sh:description "DQA-to-uncertainty translation associated with an assessment or profile" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path dqf:uncertainty_translation ],
+        [ sh:datatype xsd:string ;
+            sh:description "Reference to supporting evidence such as a report, dataset, diagnostic output, certificate, standard, or workflow record" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path dqf:data_quality_evidence_reference_value ],
+        [ sh:datatype xsd:float ;
+            sh:description "Numeric criterion score when the score is represented as a number" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path dqf:criterion_numeric_score_value ],
+        [ sh:class dqf:qualityIssue ;
+            sh:description "Data quality issues, limitations, anomalies, or risks" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path dqf:quality_issues ],
+        [ sh:datatype xsd:string ;
+            sh:description "Rationale for assigning the criterion score" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path dqf:criterion_rationale_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Threshold, rule, target, or expectation used to score the criterion" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path dqf:criterion_threshold_value ],
+        [ sh:datatype xsd:float ;
+            sh:description "Weight assigned to the criterion in an aggregation or decision rule" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path dqf:criterion_weight_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Metric value, observation, or diagnostic result used to support the criterion score" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path dqf:criterion_metric_value ] ;
+    sh:targetClass dqf:qualityCriterionAssessment .
+
+dqf:qualityDiagnostic a sh:NodeShape ;
+    rdfs:comment "Diagnostic run or analysis that compares data against expectations, detects deviations, infers causes, and estimates impact" ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:dateTime ;
+            sh:description "Date and time when the diagnostic run was executed" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path dqf:diagnostic_run_timestamp_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Software, notebook, workflow, configuration, or service used to execute the diagnostic" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path dqf:diagnostic_software_reference_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identifier for a diagnostic run, check, or analysis" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path dqf:diagnostic_identifier_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Reference to supporting evidence such as a report, dataset, diagnostic output, certificate, standard, or workflow record" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 13 ;
+            sh:path dqf:data_quality_evidence_reference_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Observed deviation from the expectation, threshold, baseline, or target" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path dqf:observed_deviation_value ],
+        [ sh:description "Type of data quality diagnostic" ;
+            sh:in ( "comprehensive_profiling" "missing_data_analysis" "structural_integrity_validation" "relational_integrity_validation" "distributional_alignment" "semantic_unit_consistency" "temporal_spatial_alignment" "provenance_correlation" "impact_sensitivity" "scoring_rule_check" "reproducibility_check" "other" ) ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path dqf:diagnostic_type_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Information needed to reproduce the diagnostic run, such as pinned dependencies, configuration, hash, or workflow version" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path dqf:diagnostic_reproducibility_value ],
+        [ sh:description "Severity of the diagnostic finding" ;
+            sh:in ( "low" "moderate" "high" "critical" "not_evaluated" ) ;
+            sh:maxCount 1 ;
+            sh:order 5 ;
+            sh:path dqf:diagnostic_severity_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Diagnostic method, test, script, notebook, query, or procedure used" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path dqf:diagnostic_method_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Expected value, threshold, rule, contract, baseline, or target used by the diagnostic" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path dqf:expectation_specification_value ],
+        [ sh:class dqf:qualityIssue ;
+            sh:description "Data quality issues, limitations, anomalies, or risks" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 12 ;
+            sh:path dqf:quality_issues ],
+        [ sh:class dqf:qualityMetric ;
+            sh:description "Quality metrics or diagnostic metrics used by profiles, criteria, or diagnostics" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path dqf:quality_metrics ],
+        [ sh:datatype xsd:string ;
+            sh:description "Impact of the diagnostic finding on the intended analysis, decision, uncertainty, or comparability" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path dqf:diagnostic_impact_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Plausible or confirmed cause of the observed diagnostic finding" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path dqf:diagnostic_cause_value ] ;
+    sh:targetClass dqf:qualityDiagnostic .
+
+dqf:qualityMetric a sh:NodeShape ;
+    rdfs:comment "Metric, indicator, diagnostic output, threshold check, or quality measurement supporting a criterion score" ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Threshold, tolerance, expectation, or acceptance criterion for the metric" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path dqf:metric_threshold_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Method, query, diagnostic procedure, rule, or script used to compute the metric" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path dqf:metric_method_value ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether the metric passes the defined threshold or expectation" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path dqf:metric_pass_flag_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unit associated with a metric value" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path dqf:metric_unit_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identifier for a data quality metric or diagnostic metric" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path dqf:quality_metric_identifier_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Textual, categorical, or structured value of a metric, indicator, diagnostic output, or score" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path dqf:metric_text_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Human-readable name of the data quality metric" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path dqf:quality_metric_name_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Reference to supporting evidence such as a report, dataset, diagnostic output, certificate, standard, or workflow record" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path dqf:data_quality_evidence_reference_value ],
+        [ sh:description "Category or criterion to which the quality metric belongs" ;
+            sh:in ( "validity" "accuracy" "consistency" "timeliness" "completeness" "representativeness" "transparency" "provenance" "reproducibility" "precision" "other" ) ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path dqf:quality_metric_category_value ],
+        [ sh:datatype xsd:float ;
+            sh:description "Numeric value of a metric, indicator, diagnostic output, or score" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path dqf:metric_numeric_value ] ;
+    sh:targetClass dqf:qualityMetric .
+
+dqf:remediationAction a sh:NodeShape ;
+    rdfs:comment "Remediation, mitigation, containment, or improvement activity for a data quality issue" ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Reference to supporting evidence such as a report, dataset, diagnostic output, certificate, standard, or workflow record" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path dqf:data_quality_evidence_reference_value ],
+        [ sh:description "Priority assigned to the remediation activity" ;
+            sh:in ( "low" "medium" "high" "urgent" "not_assigned" ) ;
+            sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path dqf:remediation_priority_value ],
+        [ sh:description "Type of remediation action" ;
+            sh:in ( "sampling_redesign" "reweighting" "imputation" "recalibration" "metadata_completion" "data_contract_enforcement" "unit_canonicalization" "source_refresh" "governance_agreement" "uncertainty_inflation" "quarantine" "rejection" "other" ) ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path dqf:remediation_action_type_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Expected score, score change, or quality improvement after remediation" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path dqf:expected_score_improvement_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Person, organization, team, system, or workflow responsible for remediation" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path dqf:remediation_owner_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identifier for a remediation action, mitigation, containment, or improvement activity" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path dqf:remediation_action_identifier_value ],
+        [ sh:datatype xsd:date ;
+            sh:description "Completion date for the remediation activity" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path dqf:remediation_completion_date_value ],
+        [ sh:datatype xsd:date ;
+            sh:description "Due date for the remediation activity" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path dqf:remediation_due_date_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Description of the remediation, mitigation, containment, or improvement activity" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path dqf:remediation_description_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Method or evidence used to verify that remediation was effective" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path dqf:verification_method_value ],
+        [ sh:description "Lifecycle status of the remediation activity" ;
+            sh:in ( "proposed" "planned" "in_progress" "completed" "verified" "deferred" "cancelled" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:order 4 ;
+            sh:path dqf:remediation_status_value ] ;
+    sh:targetClass dqf:remediationAction .
+
+dqf:qualityIssue a sh:NodeShape ;
+    rdfs:comment "Data quality issue, limitation, anomaly, or risk identified through scoring, diagnostics, provenance review, or expert assessment" ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:date ;
+            sh:description "Date when the issue was detected" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path dqf:issue_detected_date_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Root cause, suspected cause, or causal inference for the issue" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path dqf:issue_root_cause_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Reference to an uncertainty statement, uncertainty budget, or uncertainty component informed by this data quality assessment" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path dqf:data_quality_uncertainty_reference_value ],
+        [ sh:description "Lifecycle status of the data quality issue" ;
+            sh:in ( "open" "under_review" "mitigated" "remediated" "accepted_risk" "closed" "superseded" ) ;
+            sh:maxCount 1 ;
+            sh:order 4 ;
+            sh:path dqf:issue_status_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Scope of the issue, such as affected fields, records, time periods, regions, suppliers, or processes" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path dqf:issue_scope_value ],
+        [ sh:description "Severity or criticality of the data quality issue" ;
+            sh:in ( "low" "moderate" "high" "critical" "not_evaluated" ) ;
+            sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path dqf:issue_severity_value ],
+        [ sh:description "Type of data quality issue" ;
+            sh:in ( "missingness" "non_representativeness" "timeliness_deficit" "schema_drift" "unit_mismatch" "coding_mismatch" "calibration_gap" "provenance_gap" "method_mismatch" "boundary_mismatch" "outlier_or_anomaly" "duplicate_or_conflict" "bias" "invalid_value" "other" ) ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path dqf:quality_issue_type_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Reference to supporting evidence such as a report, dataset, diagnostic output, certificate, standard, or workflow record" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path dqf:data_quality_evidence_reference_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Risk statement explaining how the issue may affect the intended use, decision, or analysis" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path dqf:issue_risk_statement_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identifier for a data quality issue, limitation, anomaly, or risk" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path dqf:quality_issue_identifier_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Quality criteria affected by the issue" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path dqf:issue_affected_criteria_value ],
+        [ sh:class dqf:remediationAction ;
+            sh:description "Remediation, mitigation, containment, or improvement actions" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path dqf:remediation_actions ] ;
+    sh:targetClass dqf:qualityIssue .
+
+dqf:uncertaintyTranslation a sh:NodeShape ;
+    rdfs:comment "Translation from data quality information into uncertainty metadata, such as coefficient of variation or uncertainty factor" ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Distributional assumption used for data-quality-derived uncertainty, such as normal or lognormal" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path dqf:uncertainty_distribution_assumption_value ],
+        [ sh:datatype xsd:float ;
+            sh:description "Uncertainty factor derived from data quality information" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path dqf:data_quality_uncertainty_factor_value ],
+        [ sh:datatype xsd:float ;
+            sh:description "Upper bound of coefficient of variation derived from data quality information" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path dqf:coefficient_of_variation_upper_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Reference to an uncertainty statement, uncertainty budget, or uncertainty component informed by this data quality assessment" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path dqf:data_quality_uncertainty_reference_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identifier for a translation from data quality scores to uncertainty information" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path dqf:uncertainty_translation_identifier_value ],
+        [ sh:description "Method used to translate data quality information into uncertainty" ;
+            sh:in ( "cv_lookup" "uf_lookup" "direct_cv" "direct_uf" "lognormal_uf" "expert_judgement" "sensitivity_analysis" "monte_carlo" "not_evaluated" "other" ) ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path dqf:uncertainty_translation_method_value ],
+        [ sh:description "Quality score used as input to the uncertainty translation" ;
+            sh:in ( "score_1_very_reliable" "score_2_reliable" "score_3_unreliable" "score_4_dubious" "not_evaluated" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path dqf:source_quality_score_value ],
+        [ sh:datatype xsd:float ;
+            sh:description "Lower bound of coefficient of variation derived from data quality information" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path dqf:coefficient_of_variation_lower_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Reference to supporting evidence such as a report, dataset, diagnostic output, certificate, standard, or workflow record" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path dqf:data_quality_evidence_reference_value ],
+        [ sh:datatype xsd:float ;
+            sh:description "Combined uncertainty factor after aggregating data-quality-derived uncertainty contributions" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path dqf:combined_uncertainty_factor_value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Rationale explaining how data quality information was translated into uncertainty" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path dqf:uncertainty_translation_rationale_value ],
+        [ sh:datatype xsd:float ;
+            sh:description "Combined coefficient of variation after aggregating data-quality-derived uncertainty contributions" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path dqf:combined_coefficient_of_variation_value ] ;
+    sh:targetClass dqf:uncertaintyTranslation .
+
+
